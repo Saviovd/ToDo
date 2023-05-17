@@ -1,4 +1,4 @@
-import { read, create, update, deleteByid } from "@db-crud-todo";
+import { read, create, update, deleteById as deleteByDB } from "@db-crud-todo";
 import { HttpNotFoundError } from "@server/infra/errors";
 
 interface ITodoRepositoryGetParams {
@@ -69,7 +69,7 @@ async function deleteById(id: string) {
     throw new HttpNotFoundError(`The ID: ${id} is not Found :(`);
   }
 
-  deleteByid(id);
+  deleteByDB(id);
 
   return;
 }

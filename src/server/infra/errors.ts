@@ -1,10 +1,9 @@
 export class HttpNotFoundError extends Error {
-  status: number
+  status: number;
 
   constructor(message: string) {
-    super()
+    super();
     this.message = message;
-    this.status = 404
+    this.status = 404;
   }
-
 }

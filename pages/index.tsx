@@ -3,30 +3,32 @@ import { GlobalStyles } from "@ui/theme/GlobalStyles";
 import { todoController } from "@ui/controller/todo";
 const bg = "/bg.jpeg";
 
-
 interface IHomeToDo {
   id: string;
   content: string;
-  done: boolean
+  done: boolean;
 }
 
 export default function HomePage() {
-  const [newToDoContent, setNewToDoContent] = React.useState("")
-  const initialLoadComplete = React.useRef(false)
-  const [search, setSearch] = React.useState("")
+  const [newToDoContent, setNewToDoContent] = React.useState("");
+  const initialLoadComplete = React.useRef(false);
+  const [search, setSearch] = React.useState("");
   const [newToDos, setNewToDos] = React.useState<IHomeToDo[]>([]);
   const [page, setPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(0);
   const hasMorePages = totalPages > page;
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const homeToDos = todoController.fuilterToDosByContent<IHomeToDo>(search, newToDos);
+  const homeToDos = todoController.fuilterToDosByContent<IHomeToDo>(
+    search,
+    newToDos
+  );
   const hasNoToDo = homeToDos.length === 0 && !isLoading;
-
 
   React.useEffect(() => {
     if (!initialLoadComplete.current) {
-      todoController.get({ page })
+      todoController
+        .get({ page })
         .then(({ todos, pages }) => {
           setNewToDos(todos);
           setTotalPages(pages);
@@ -34,10 +36,9 @@ export default function HomePage() {
         .finally(() => {
           setIsLoading(false);
           initialLoadComplete.current = true;
-        })
+        });
     }
   }, []);
-
 
   return (
     <main>
@@ -62,17 +63,18 @@ export default function HomePage() {
                 setNewToDos((oldTodos) => {
                   return [todo, ...oldTodos];
                 });
-              }
-            })
-            setNewToDoContent("")
+              },
+            });
+            setNewToDoContent("");
           }}
         >
           <input
             name="add-todo"
-            type="text" placeholder="Correr, Estudar..."
+            type="text"
+            placeholder="Correr, Estudar..."
             value={newToDoContent}
             onChange={function newToDoHandle(event) {
-              setNewToDoContent(event.target.value)
+              setNewToDoContent(event.target.value);
             }}
           />
           <button type="submit" aria-label="Adicionar novo item">
@@ -83,9 +85,11 @@ export default function HomePage() {
 
       <section>
         <form>
-          <input type="text" placeholder="Filtrar lista atual, ex: Dentista"
+          <input
+            type="text"
+            placeholder="Filtrar lista atual, ex: Dentista"
             onChange={function handleSearch(event) {
-              setSearch(event.target.value)
+              setSearch(event.target.value);
             }}
           />
         </form>
@@ -142,19 +146,22 @@ export default function HomePage() {
                     <button
                       data-type="delete"
                       onClick={function deleteToDo() {
-                        todoController.DeleteById(toDo.id)
+                        todoController.deleteById(toDo.id);
                         setNewToDos((currentToDos) => {
                           return currentToDos.filter((currentToDo) => {
                             if (currentToDo.id === toDo.id) {
-                              return false
+                              return false;
                             }
-                            return true
+                            return true;
                           });
-                        })
-                      }}>Apagar</button>
+                        });
+                      }}
+                    >
+                      Apagar
+                    </button>
                   </td>
                 </tr>
-              )
+              );
             })}
 
             {isLoading && (
@@ -176,21 +183,23 @@ export default function HomePage() {
             {hasMorePages && (
               <tr>
                 <td colSpan={4} align="center" style={{ textAlign: "center" }}>
-                  <button data-type="load-more" onClick={() => {
-                    setIsLoading(true)
-                    const nextPage = page + 1;
-                    setPage(nextPage);
-                    todoController.get({ page: nextPage })
-                      .then(({ todos, pages }) => {
-                        setNewToDos((oldToDos) => {
-                          return [
-                            ...oldToDos, ...todos
-                          ]
-                        });
-                        setTotalPages(pages);
-                      })
-                      .finally(() => setIsLoading(false))
-                  }}>
+                  <button
+                    data-type="load-more"
+                    onClick={() => {
+                      setIsLoading(true);
+                      const nextPage = page + 1;
+                      setPage(nextPage);
+                      todoController
+                        .get({ page: nextPage })
+                        .then(({ todos, pages }) => {
+                          setNewToDos((oldToDos) => {
+                            return [...oldToDos, ...todos];
+                          });
+                          setTotalPages(pages);
+                        })
+                        .finally(() => setIsLoading(false));
+                    }}
+                  >
                     Página {page} Carregar mais{" "}
                     <span
                       style={{

@@ -41,7 +41,6 @@ function toggleDone({
   updateToDoOnScreen,
   onError,
 }: TodoControllerToggleDoneParams) {
-
   todoRepository
     .toggleDone(id)
     .then(() => {
@@ -63,8 +62,8 @@ function fuilterToDosByContent<Todo>(
   return homeTodos;
 }
 
-async function DeleteById(id: string){
-  await todoRepository.DeleteById(id)
+async function deleteById(id: string) {
+  await todoRepository.deleteById(id);
 }
 
 export const todoController = {
@@ -72,5 +71,5 @@ export const todoController = {
   fuilterToDosByContent,
   create,
   toggleDone,
-  DeleteById,
+  deleteById,
 };

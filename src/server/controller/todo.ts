@@ -86,18 +86,18 @@ async function update(req: NextApiRequest, res: NextApiResponse) {
 async function deleteById(req: NextApiRequest, res: NextApiResponse) {
   const querySchema = schema.object({
     id: schema.string().uuid().nonempty(),
-  })
-  const parsedQuery = querySchema.safeParse(req.query)
-  if(!parsedQuery.success) {
+  });
+  const parsedQuery = querySchema.safeParse(req.query);
+  if (!parsedQuery.success) {
     res.status(400).json({
       error: {
-        message: "You must to provide a valid ID"
+        message: "You must to provide a valid ID",
       },
     });
     return;
   }
 
-  const toDoId = parsedQuery.data.id
+  const toDoId = parsedQuery.data.id;
   try {
     await todoRepository.deleteById(toDoId);
     res.status(204).end();

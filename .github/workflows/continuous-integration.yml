@@ -1,0 +1,18 @@
+name: "[CI] Continuous Integration"
+
+# Sempre que tiver um commit ou um PR for aberto
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: "Debug"
+      run: "ls -la"
+    - name: "Install Dependencies"
+      run: "npm install"
+    - name: "Lint"
+      run: "npm run lint"

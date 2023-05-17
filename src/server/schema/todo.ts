@@ -7,11 +7,11 @@ export const TodoSchema = schema.object({
     return new Date(date).toISOString();
   }),
   done: schema.string().transform((done) => {
-    if(done === "true") {
-      return true
+    if (done === "true") {
+      return true;
     }
 
-    return false
+    return false;
   }),
 });
 

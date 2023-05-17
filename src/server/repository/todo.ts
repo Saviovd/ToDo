@@ -100,7 +100,7 @@ async function updateById(id: string) {
 }
 
 async function deleteById(id: string) {
-  const { data, error } = await supabase.from("todos").delete().match({
+  const { error } = await supabase.from("todos").delete().match({
     id,
   });
 

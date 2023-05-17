@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.22.0",
     "eslint-plugin-cypress": "^2.13.3",
     "next": "^13.4.1",
     "react": "^18.2.0",
